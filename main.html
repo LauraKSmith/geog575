@@ -10,7 +10,7 @@
      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
      crossorigin=""></script>
      <style>
-       #mapid { height: 385px; }
+       #mapid { height: 700px; }
        </style>
 </head>
 <body>
@@ -18,13 +18,13 @@
 
 <script>
 
-var map = L.map('mapid').setView([40.048641, -95.134114], 22);
+var map = L.map('mapid').setView([39.896776, -94.971505], 5);
 
 //add tile layer...replace project id and accessToken with your own
 //L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
-	maxZoom: 1,
+	maxZoom: 10,
   id: 'lksmith5',
   accessToken: 'pk.eyJ1IjoibGtzbWl0aDUiLCJhIjoiY2swa202Ym94MDNmYjNjbGFsZmNsazd3eSJ9.aebW56uPIc6nhdqwzYKEHQ'
 }).addTo(map);
@@ -34,28 +34,28 @@ var map = L.map('mapid').setView([40.048641, -95.134114], 22);
 //    accessToken: 'ab.cdE1Fghijk2lmNopQR3stUv4WX5YZabcDEF6GhiJK7L8M9NopQ.rsTuVWxyZABCDEFghiJKlm'
 // }).addTo(map);
 
-var marker = L.marker([51.5, -0.09]).addTo(map);
+var marker = L.marker([39.896776, -94.971505]).addTo(map);
 
-var circle = L.circle([51.508, -0.11], 500, {
+var circle = L.circle([39.896776, -94.971505], 500, {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5
 }).addTo(map);
 
 var polygon = L.polygon([
-    [51.509, -0.08],
-    [51.503, -0.06],
-    [51.51, -0.047]
+    [39.896742, -94.971505],
+    [39.896735, -94.971595],
+    [39.896796, -94.971550]
 ]).addTo(map);
 
-marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+//marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 circle.bindPopup("I am a circle.");
 polygon.bindPopup("I am a polygon.");
 
-var popup = L.popup()
-    .setLatLng([51.5, -0.09])
-    .setContent("I am a standalone popup.")
-    .openOn(map);
+//var popup = L.popup()
+  //  .setLatLng([39.896776, -94.971505])
+  //  .setContent("I am a standalone popup.")
+  //  .openOn(map);
 
 var popup = L.popup();
 
