@@ -24,7 +24,7 @@ var map = L.map('mapid').setView([39.896776, -94.971505], 5);
 //L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
-	maxZoom: 10,
+	maxZoom: 30,
   id: 'lksmith5',
   accessToken: 'pk.eyJ1IjoibGtzbWl0aDUiLCJhIjoiY2swa202Ym94MDNmYjNjbGFsZmNsazd3eSJ9.aebW56uPIc6nhdqwzYKEHQ'
 }).addTo(map);
@@ -34,10 +34,94 @@ var map = L.map('mapid').setView([39.896776, -94.971505], 5);
 //    accessToken: 'ab.cdE1Fghijk2lmNopQR3stUv4WX5YZabcDEF6GhiJK7L8M9NopQ.rsTuVWxyZABCDEFghiJKlm'
 // }).addTo(map);
 
-var marker = L.marker([39.896776, -94.971505]).addTo(map);
+//var marker = L.marker([39.896776, -94.971505]).addTo(map);
 
-var circle = L.circle([39.896776, -94.971505], 500, {
-    color: 'red',
+var arkansasCity = L.circle([33.607966, -91.164221-97.03901], 500, {
+   color: 'teal',
+   fillColor: '#f03',
+   fillOpacity: 0.5
+}).addTo(map);
+
+var memphis = L.circle([35.149532, -90.048981], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var minneaoplis = L.circle([44.977753, -93.265015], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var newOrleans = L.circle([29.951065, -90.071533], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var stLouis = L.circle([38.627003, -90.199402], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var batonRouge = L.circle([30.451468, -91.187149], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var stPaul = L.circle([44.953705, -93.089958], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var davenport = L.circle([41.523643, -90.577637], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var grandRapids = L.circle([47.2314, -93.526871], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var stCloud = L.circle([45.557945, -94.163239], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var laCrosse = L.circle([43.80877, -91.25186], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var vicksburg = L.circle([32.348141, -90.882462], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var natchez = L.circle([31.560444, -91.403168], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var quiency = L.circle([39.93553, -91.38875], 500, {
+    color: 'teal',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(map);
+
+var prescott = L.circle([44.74931, -92.80088], 500, {
+    color: 'teal',
     fillColor: '#f03',
     fillOpacity: 0.5
 }).addTo(map);
