@@ -1,10 +1,15 @@
 <html>
 <head>
-/* Example from Leaflet Quick Start Guide*/
+Mississippi River Populations Over a Century
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
 
+//load jquery
+<script
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+crossorigin="anonymous"></script>
 //<!-- Make sure you put this AFTER Leaflet's CSS -->
    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
@@ -20,6 +25,8 @@
 
 var map = L.map('mapid').setView([39.896776, -94.971505], 5);
 
+
+
 //add tile layer...replace project id and accessToken with your own
 //L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
@@ -34,96 +41,35 @@ var map = L.map('mapid').setView([39.896776, -94.971505], 5);
 //    accessToken: 'ab.cdE1Fghijk2lmNopQR3stUv4WX5YZabcDEF6GhiJK7L8M9NopQ.rsTuVWxyZABCDEFghiJKlm'
 // }).addTo(map);
 
-//var marker = L.marker([39.896776, -94.971505]).addTo(map);
+//This is erroring out
+//ajax loading mississippi river geojson
+    $.ajax("data/miss.geojson", {
+        dataType: "json",
+        success: function(response){
+          //create marker options
+          var geojsonMarkerOptions = {
+            radius: 8,
+            //blue of the water is 9EBCD8
+            fillColor: "#378892",
+            color: "#000",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8
+          };
+
+//create a Leaflet GeoJSON layer and add it to the map
+L.geoJson(response, {
+    pointToLayer: function (feature, latlng){
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+    }
+}).addTo(map);
+}
+});
 
 var arkansasCity = L.circle([33.607966, -91.164221-97.03901], 500, {
    color: 'teal',
    fillColor: '#f03',
    fillOpacity: 0.5
-}).addTo(map);
-
-var memphis = L.circle([35.149532, -90.048981], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var minneaoplis = L.circle([44.977753, -93.265015], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var newOrleans = L.circle([29.951065, -90.071533], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var stLouis = L.circle([38.627003, -90.199402], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var batonRouge = L.circle([30.451468, -91.187149], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var stPaul = L.circle([44.953705, -93.089958], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var davenport = L.circle([41.523643, -90.577637], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var grandRapids = L.circle([47.2314, -93.526871], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var stCloud = L.circle([45.557945, -94.163239], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var laCrosse = L.circle([43.80877, -91.25186], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var vicksburg = L.circle([32.348141, -90.882462], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var natchez = L.circle([31.560444, -91.403168], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var quiency = L.circle([39.93553, -91.38875], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(map);
-
-var prescott = L.circle([44.74931, -92.80088], 500, {
-    color: 'teal',
-    fillColor: '#f03',
-    fillOpacity: 0.5
 }).addTo(map);
 
 var polygon = L.polygon([
@@ -133,7 +79,7 @@ var polygon = L.polygon([
 ]).addTo(map);
 
 //marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-circle.bindPopup("I am a circle.");
+arkansasCity.bindPopup("I am a circle.");
 polygon.bindPopup("I am a polygon.");
 
 //var popup = L.popup()

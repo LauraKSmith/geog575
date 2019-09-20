@@ -1,0 +1,380 @@
+{
+   "type": "FeatureCollection",
+   "features": [
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -91.164221,33.607966 ]
+    },
+    "properties": {
+    "Fid":1,
+    "Community":" Arkansas city",
+    "state":"Arkansas",
+    "pop_est":318,
+    "pop_2010":366,
+    "pop_2000":589,
+    "pop_1990":523,
+    "pop_1980":668,
+    "pop_1970":615,
+    "pop_1960":783,
+    "pop_1950":1018,
+    "pop_1940":1446,
+    "pop_1930":1432,
+    "pop_1920":1482,
+    "pop_1910":1485,
+    "pop_1900":1091
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -90.048981,35.149532 ]
+    },
+    "properties": {
+    "Fid":2,
+    "Community":" Memphis",
+    "state":"Tennessee",
+    "pop_est":650618,
+    "pop_2010":646889,
+    "pop_2000":650100,
+    "pop_1990":610337,
+    "pop_1980":646174,
+    "pop_1970":623988,
+    "pop_1960":497524,
+    "pop_1950":396000,
+    "pop_1940":292942,
+    "pop_1930":253143,
+    "pop_1920":162351,
+    "pop_1910":131105,
+    "pop_1900":102320
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -93.265015,44.977753 ]
+    },
+    "properties": {
+    "Fid":3,
+    "Community":"Minneapolis",
+    "state":"Minnesota",
+    "pop_est":425403,
+    "pop_2010":382578,
+    "pop_2000":382618,
+    "pop_1990":368383,
+    "pop_1980":370951,
+    "pop_1970":434400,
+    "pop_1960":482872,
+    "pop_1950":521718,
+    "pop_1940":492370,
+    "pop_1930":464356,
+    "pop_1920":380582,
+    "pop_1910":301408,
+    "pop_1900":202718
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -90.071533,29.951065 ]
+    },
+    "properties": {
+    "Fid":4,
+    "Community":"New orleans ",
+    "state":"Lousiana",
+    "pop_est":391006,
+    "pop_2010":343829,
+    "pop_2000":484674,
+    "pop_1990":496938,
+    "pop_1980":557515,
+    "pop_1970":593471,
+    "pop_1960":627525,
+    "pop_1950":570445,
+    "pop_1940":494537,
+    "pop_1930":458762,
+    "pop_1920":387219,
+    "pop_1910":339075,
+    "pop_1900":287104
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -90.199402,38.627003 ]
+    },
+    "properties": {
+    "Fid":5,
+    "Community":"St Louis",
+    "state":"Missouri�",
+    "pop_est":302838,
+    "pop_2010":319294,
+    "pop_2000":348189,
+    "pop_1990":396685,
+    "pop_1980":453805,
+    "pop_1970":622236,
+    "pop_1960":750026,
+    "pop_1950":856796,
+    "pop_1940":816048,
+    "pop_1930":821960,
+    "pop_1920":772897,
+    "pop_1910":687029,
+    "pop_1900":575238
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -93.089958,44.953705 ]
+    },
+    "properties": {
+    "Fid":6,
+    "Community":"Saint paul",
+    "state":"Minnesota",
+    "pop_est":307695,
+    "pop_2010":285068,
+    "pop_2000":287151,
+    "pop_1990":272235,
+    "pop_1980":270230,
+    "pop_1970":309980,
+    "pop_1960":313411,
+    "pop_1950":311349,
+    "pop_1940":287736,
+    "pop_1930":271606,
+    "pop_1920":234698,
+    "pop_1910":214744,
+    "pop_1900":163065
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -91.187149,30.451468 ]
+    },
+    "properties": {
+    "Fid":7,
+    "Community":"Baton rouge",
+    "state":"lousiana",
+    "pop_est":221599,
+    "pop_2010":229493,
+    "pop_2000":227818,
+    "pop_1990":219531,
+    "pop_1980":220394,
+    "pop_1970":165921,
+    "pop_1960":152419,
+    "pop_1950":125629,
+    "pop_1940":34719,
+    "pop_1930":30729,
+    "pop_1920":21782,
+    "pop_1910":14897,
+    "pop_1900":11269
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -90.577637,41.523643 ]
+    },
+    "properties": {
+    "Fid":8,
+    "Community":"Davenport",
+    "state":"Iowa",
+    "pop_est":102085,
+    "pop_2010":99685,
+    "pop_2000":98359,
+    "pop_1990":95333,
+    "pop_1980":103264,
+    "pop_1970":98469,
+    "pop_1960":88981,
+    "pop_1950":74549,
+    "pop_1940":66039,
+    "pop_1930":60751,
+    "pop_1920":56727,
+    "pop_1910":43028,
+    "pop_1900":35254
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -93.526871,47.2314 ]
+    },
+    "properties": {
+    "Fid":9,
+    "Community":"Grand Rapids",
+    "state":"Minnesota",
+    "pop_est":200217,
+    "pop_2010":188040,
+    "pop_2000":197800,
+    "pop_1990":189126,
+    "pop_1980":181843,
+    "pop_1970":197649,
+    "pop_1960":177313,
+    "pop_1950":176515,
+    "pop_1940":164292,
+    "pop_1930":168592,
+    "pop_1920":137634,
+    "pop_1910":112571,
+    "pop_1900":87565
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -94.163239,45.557945 ]
+    },
+    "properties": {
+    "Fid":10,
+    "Community":"St. Cloud",
+    "state":"Minnesota",
+    "pop_est":68043,
+    "pop_2010":65842,
+    "pop_2000":59108,
+    "pop_1990":48812,
+    "pop_1980":42566,
+    "pop_1970":39691,
+    "pop_1960":32415,
+    "pop_1950":28410,
+    "pop_1940":24173,
+    "pop_1930":21000,
+    "pop_1920":15873,
+    "pop_1910":10600,
+    "pop_1900":8663
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -91.25186,43.80877 ]
+    },
+    "properties": {
+    "Fid":11,
+    "Community":"La Crosse",
+    "state":"Wisconsin",
+    "pop_est":51567,
+    "pop_2010":51320,
+    "pop_2000":51818,
+    "pop_1990":51140,
+    "pop_1980":48347,
+    "pop_1970":50286,
+    "pop_1960":47258,
+    "pop_1950":47535,
+    "pop_1940":42707,
+    "pop_1930":39614,
+    "pop_1920":30421,
+    "pop_1910":30417,
+    "pop_1900":28895
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -90.882462,32.348141 ]
+    },
+    "properties": {
+    "Fid":12,
+    "Community":"Vicksburg",
+    "state":"Mississippi",
+    "pop_est":22136,
+    "pop_2010":23856,
+    "pop_2000":26407,
+    "pop_1990":20908,
+    "pop_1980":25434,
+    "pop_1970":25478,
+    "pop_1960":29143,
+    "pop_1950":27948,
+    "pop_1940":24460,
+    "pop_1930":22943,
+    "pop_1920":18072,
+    "pop_1910":20814,
+    "pop_1900":14834
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -91.403168,31.560444 ]
+    },
+    "properties": {
+    "Fid":13,
+    "Community":"Natchez",
+    "state":"Mississippi",
+    "pop_est":15009,
+    "pop_2010":15792,
+    "pop_2000":18464,
+    "pop_1990":19535,
+    "pop_1980":22015,
+    "pop_1970":19704,
+    "pop_1960":23791,
+    "pop_1950":22740,
+    "pop_1940":15296,
+    "pop_1930":13422,
+    "pop_1920":12608,
+    "pop_1910":11791,
+    "pop_1900":12210
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -91.38875,39.93553 ]
+    },
+    "properties": {
+    "Fid":14,
+    "Community":"Quiency",
+    "state":"Illinois",
+    "pop_est":40042,
+    "pop_2010":40633,
+    "pop_2000":40366,
+    "pop_1990":39681,
+    "pop_1980":42554,
+    "pop_1970":45288,
+    "pop_1960":43793,
+    "pop_1950":41450,
+    "pop_1940":40469,
+    "pop_1930":39241,
+    "pop_1920":35978,
+    "pop_1910":36587,
+    "pop_1900":36252
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+       "type": "Point",
+       "coordinates":  [ -92.80088,44.74931 ]
+    },
+    "properties": {
+    "Fid":15,
+    "Community":"Prescott",
+    "state":"Wisconsin",
+    "pop_est":4272,
+    "pop_2010":4258,
+    "pop_2000":3764,
+    "pop_1990":3243,
+    "pop_1980":2654,
+    "pop_1970":2331,
+    "pop_1960":1536,
+    "pop_1950":1005,
+    "pop_1940":857,
+    "pop_1930":755,
+    "pop_1920":892,
+    "pop_1910":936,
+    "pop_1900":1002
+    }
+  }
+]
+}
