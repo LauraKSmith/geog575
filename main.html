@@ -17,15 +17,24 @@ crossorigin="anonymous"></script>
      crossorigin=""></script>
      <style>
        #mapid { height: 700px;
-                width: 80%;
+                width: 75%;
                 display: inline-block;
+                float: left;
               }
-//start creat panel for popup
-      #panel { width: 16%;
-               padding: 20px;
+//start create panel for popup
+      #panel { width: 15%;
+               padding: 60px;
                display: inline-block;
                vertical-align: top;
+               float: right;
              }
+
+             #popcon { width: 10%;
+                      padding: 20px;
+                      display: inline-block;
+                      vertical-align: top;
+                      float: left;
+                    }
 //end create panel for popup
        </style>
 </head>
@@ -118,7 +127,6 @@ return radius;
         onEachFeature: function(feature, layer) {
           // popup content <section>
           //original popupContent changed to panelContent...Example 2.2 line 1
-            var panelContent = "<p><b>City:</b> " + feature.properties.City + "</p>";
 
             //add formatted attribute to panel content string
             var attribute = 'pop_2000';
@@ -147,8 +155,8 @@ return radius;
             options.radius = radius;
             //bind the popup to the circle marker
             layer.bindPopup(popupContent, {
-                offset: new L.Point(0, -radius),
-                closeButton: false
+            // offset: new L.Point(0, -radius),
+            //    closeButton: false
             });
 
             //event listeners to open popup on hover and fill panel on click
@@ -161,7 +169,7 @@ return radius;
                 },
                 click: function(){
                     var popupContent = this.feature.properties.Community;
-                    popupContent += "<p><b>Population in " + "2010" + ":</b> " + feature.properties["pop_2010"] + " people</p>";
+                    popupContent += "<p><b>Population in " + "2010" + ":</b> " + feature.properties["pop_2010"] + " people.</p>";
                     $("#popcon").html(popupContent);
 
                 }
@@ -174,22 +182,6 @@ return radius;
 
 //end scaled proportional symbol
 
-
-
-
-
-
-//create a Leaflet GeoJSON layer and add it to the map
-/* L.geoJson(response, {
-    pointToLayer: function (feature, latlng, attributes){
-      var attValue = Number(feature.properties[attribute]);
-
-      //examine the attribute value to check that it is correct
-      console.log(feature.properties, attValue);
-
-        return L.circleMarker(latlng, geojsonMarkerOptions);
-    }
-}).addTo(map); */
 }
 });
 
@@ -206,14 +198,6 @@ var polygon = L.polygon([
     [39.896796, -94.971550]
 ]).addTo(map);
 
-//marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-arkansasCity.bindPopup("I am a circle.");
-polygon.bindPopup("I am a polygon.");
-
-//var popup = L.popup()
-  //  .setLatLng([39.896776, -94.971505])
-  //  .setContent("I am a standalone popup.")
-  //  .openOn(map);
 
 var popup = L.popup();
 
@@ -227,9 +211,9 @@ function onMapClick(e) {
 map.on('click', onMapClick);
 </script>
 Unlike the rest of the US populations along the mississippi river have been shrinking over time. Some towns are smaller because less trade
-takes plave along the river, while others have noticable dips after natural disasters effect the area. Most of hte sothern cities suffered a dip
+takes place along the river, while others have noticable dips after natural disasters effect the area. Most of the southern cities suffered a dip
 in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina.
 
-Data is provided by the us census, usgs, and
+Data is provided by the US Census, USGS, FEMA, and the Army Corp of Engineers.
 </body>
 </html>
