@@ -10,6 +10,7 @@ function passAjax(){
 
 };
 
+
 function debugCallback(response){
 
     var mydata = response;
