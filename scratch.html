@@ -1,97 +1,261 @@
 <html>
 <head>
-Mississippi River Populations Over a Century
+
+The Shifting Population of the Mississippi River Communities
+
+<!--put your external stylesheet links here-->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
 
+<!--	Use if you are linking to hosted style sheet but you took the approach of having it embedded.-->
+<!--<link rel="stylesheet" href="css/style.css">-->
 
-<script
-src="https://code.jquery.com/jquery-3.4.1.min.js"
-integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-crossorigin="anonymous"></script>
-
-
-   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-     integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-     crossorigin=""></script>
-     <style>
-       #mapid { height: 700px;
+	<style>
+		#mapid { height: 700px;
                 width: 75%;
                 display: inline-block;
                 float: left;
               }
-//start create panel for popup
-      #panel { width: 15%;
+/*start create panel for popup*/
+		#panel { width: 15%;
                padding: 60px;
                display: inline-block;
                vertical-align: top;
+               text-align: center;
                float: right;
              }
+		#popcon { width: 10%;
+                padding: 20px;
+                display: inline-block;
+                vertical-align: top;
+                text-align: center;
+                float: left;
+              }
 
-             #popcon { width: 10%;
-                      padding: 20px;
-                      display: inline-block;
-                      vertical-align: top;
-                      float: left;
-                    }
-//end create panel for popup
-       </style>
+		.range-slider {
+			width: 50%;
+            }
+		#forward {
+			float: right;
+            }
+		#reverse {
+			float: left;
+            }
+.legend-control-container {
+							width: 200px;
+						}
+
+#temporal-legend {
+							font-weight: bold;
+							font-size: 1.5em;
+						}
+/*end create panel for popup*/
+	</style>
 </head>
 <body>
 <div id="popcon"></div>
 <div id="mapid"></div>
 <div id="panel"></div>
 
+<!--library scripts-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+            integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+            crossorigin=""></script>
 
+<!--main script-->
 <script>
+//Step 1: Create the Leaflet map
+	function createMap(){
 //loads map coordinats and zoom vaule, 3 chosen because it shows off the US well.
-var map = L.map('mapid').setView([39.896776, -94.971505], 5);
-var popdata =('("data/miss.geojson"')
-
-
+		var map = L.map('mapid').setView([39.896776, -98.144583], 5);
 //add tile layer...replace project id and accessToken with your own
-//L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-  var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
-	maxZoom: 30,
-  id: 'lksmith5',
-  accessToken: 'pk.eyJ1IjoibGtzbWl0aDUiLCJhIjoiY2swa202Ym94MDNmYjNjbGFsZmNsazd3eSJ9.aebW56uPIc6nhdqwzYKEHQ'
-}).addTo(map);
+		var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
+			maxZoom: 30,
+			id: 'lksmith5',
+			accessToken: 'pk.eyJ1IjoibGtzbWl0aDUiLCJhIjoiY2swa202Ym94MDNmYjNjbGFsZmNsazd3eSJ9.aebW56uPIc6nhdqwzYKEHQ'
+		}).addTo(map);
 //    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery   <a href="http://mapbox.com">Mapbox</a>',
 //    maxZoom: 18,
 //    id: 'username.ab12cdef',
 //    accessToken: 'ab.cdE1Fghijk2lmNopQR3stUv4WX5YZabcDEF6GhiJK7L8M9NopQ.rsTuVWxyZABCDEFghiJKlm'
 // }).addTo(map);
+//overlay code from tutorialpoints.com, also called an overlay
+// Creating Image overlay
+		var imageUrl = 'img/splashs.jpg';
+		var imageBounds = [[27.792112,-125.099676], [34.261002,-114.856335]];
+		var overlay = L.imageOverlay(imageUrl, imageBounds);
+		overlay.addTo(map);
 
+		getData(map);
 
-//ajax comman to load geojson file and create circle markers for their various locations
-// beginging of creating a proportionaL symbol
-    $.ajax("data/miss.geojson", {
+};
+	function getData(map){
+		$.ajax("data/miss.geojson", {
         dataType: "json",
         success: function(response){
           //create marker options
+          var attributes = processData(response);
+			console.log(attributes);
+
           var geojsonMarkerOptions = {
             radius: 12,
             //blue of the water is 9EBCD8
-            fillColor: "#378892",
+            fillColor: "#66ccff",
             color: "#000",
             weight: 1,
             opacity: 1,
             fillOpacity: 0.8
-          };
-          //Example 1.3 line 1...Step 3: Add circle markers for point features to the map
-          function createPropSymbols(data, map){
-              //Step 4: Determine which attribute to visualize with proportional symbols
-              var scaleFactor = 50;
-              var area = attValue * scaleFactor;
-   //radius calculated based on area
-   var radius = Math.sqrt(area/Math.PI);
 
 
-   return radius;
+		  }
+		  	createPropSymbols(response, map, attributes);
+            createSequenceControls(map, attributes);
+						createLegend(map, attributes);
+		  }
+		}
+			   )};
+
+// create attributes for createSequenceControls
+//Above Example 3.8...Step 3: build an attributes array from the data
+
+function processData(data){
+    //empty array to hold attributes
+    var attributes2 = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //only take attributes with population values
+        if (attribute.indexOf("pop") > -1){
+            attributes2.push(attribute);
+        };
+    };
+
+    //check result
+    console.log(attributes2);
+
+    return attributes2;
+};
+//end attribute for sequence
+//ajax comman to load geojson file and create circle markers for their various locations
+// beginging of creating a proportionaL symbol
+// beginging of sequencing
+//Step 1: Create new sequence controls
+
+
+// THIS IS WHERE MY ISSUE LIVES beginging MISSING
+
+function createSequenceControls(map, attributes){
+    //create range input element (slider)
+
+    var SequenceControl = L.Control.extend({
+       options: {
+           position: 'topright'
+       },
+
+       onAdd: function (map) {
+           // create the control container div with a particular class name
+           var container = L.DomUtil.create('div', 'sequence-control-container');
+
+           //create range input element (slider)
+           $(container).append('<input class="range-slider" type="range">');
+
+           //add skip buttons
+           $(container).append('<button class="skip" id="reverse" title="Reverse">Back</button>');
+           $(container).append('<button class="skip" id="forward" title="Forward">Forward</button>');
+
+           //disable any mouse event listeners for the container
+           L.DomEvent.disableClickPropagation(container);
+
+           return container;
+       }
+   });
+
+   map.addControl(new SequenceControl());
+
+    //$('#popcon').append('<input class="range-slider" type="range">');
+
+    //Step 5: click listener for buttons
+     $('.skip').click(function(){
+       //getting previous index value
+       var index = $('.range-slider').val();
+       //increment or de increment
+       if($(this).attr('id') == 'forward'){
+         index++;
+         //if past last attribute, wrap back to first, making loop
+         index = index > 12 ? 0 : index;
+       } else if ($(this).attr('id') == 'reverse'){
+         index--;
+         index = index < 0 ? 12 : index;
+       };
+       //update slider
+       $('.range-slider').val(index);
+     });
+
+     //Step 5: input listener for slider
+     $('.range-slider').on('input', function(){
+       //sequence
+ //Step 6: get the new index value
+       var index = $(this).val();
+       //Step 9: pass new attribute to update symbols
+
+       updatePropSymbols(map, attributes[index]);
+       map.eachLayer(function(layer){
+        if (layer.feature && layer.feature.properties[attribute]){
+            //update the layer style and popup
+            var props = layer.feature.properties;
+
+            //update for the new radius
+            var radius = calcPropRadius(props[attribute]);
+            layer.setRadius(radius);
+
+            //popup content
+            var popupContent = "<p><b>Community:</b> " + props.Community + "</p>";
+
+            var year = attribue.split("_")[1];
+            popupContent += "<p><b>Population in " + year + ":</b> " + props[attribute] + " people</p>";
+            layer.bindPopup(popupContent, {
+              offset: new L.Point(0,-radius)
+              });
+        };
+    });
+     });
+		   updateLegend(map, attribute);
 };
 
+
+
+
+		//Example 1.3 line 1...Step 3: Add circle markers for point features to the map
+function createPropSymbols(response, attributes, map){
+	//Step 4: Determine which attribute to visualize with proportional symbols
+	var scaleFactor = 50;
+	var area = attValue * scaleFactor;
+	//radius calculated based on area
+	var radius = Math.sqrt(area/Math.PI);
+	return radius;
+};
+//end of sequencing
+
+	function Popup(properties, attribute, layer, radius){
+    this.properties = properties;
+    this.attribute = attribute;
+    this.layer = layer;
+    this.year = attribute.split("_")[1];
+    this.population = this.properties[attribute];
+    this.content = "<p><b>City:</b> " + this.properties.City + "</p><p><b>Population in " + this.year + ":</b> " + this.population + " million</p>";
+
+    this.bindToLayer = function(){
+        this.layer.bindPopup(this.content, {
+            offset: new L.Point(0,-radius)
+        });
+    };
+};
 
 //calculate the radius of each proportional symbol
 function calcPropRadius(attValue) {
@@ -107,12 +271,62 @@ return radius;
 
 };
 
+	//function to convert markers to circle markers
+function pointToLayer(feature, latlng, attributes){
+    //Assign the current attribute based on the first index of the attributes array
+    var attribute = attributes[0];
+
+    //create marker options
+    var options = {
+        fillColor: "#6495ed",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
+
+    //For each feature, determine its value for the selected attribute
+    var attValue = Number(feature.properties[attribute]);
+
+    //Give each feature's circle marker a radius based on its attribute value
+    options.radius = calcPropRadius(attValue);
+
+    //create circle marker layer
+    var layer = L.circleMarker(latlng, options);
+
+    //Example 1.3 line 1...in pointToLayer()
+    //create new popup
+    var popup = new Popup(feature.properties, attribute, layer, options.radius);
+
+    //add popup to circle marker
+    popup.bindToLayer();
+
+    //event listeners to open popup on hover and fill panel on click
+    layer.on({
+        mouseover: function(){
+            this.openPopup();
+        },
+        mouseout: function(){
+            this.closePopup();
+        }//,
+    //  click: function(){
+    //      $("#panel").html(panelContent);
+    //  }
+    });
+
+    //return the circle marker to the L.geoJson pointToLayer option
+    return layer;
+};
 
 //Example 1.4 line 8...create a Leaflet GeoJSON layer and add it to the map
-    L.geoJson(response, {
-        pointToLayer: function (feature, latlng) {
+function createPropSymbols(data, map, attributes){
+    L.geoJson(data, {
+        pointToLayer: function(feature, latlng) {
+           return pointToLayer(feature, latlng, attributes);
+        // }
+
             //Step 5: For each feature, determine its value for the selected attribute
-            var attValue = Number(feature.properties['pop_2000']);
+            //var attValue = Number(feature.properties['pop_2000']);
 
             //Step 6: Give each feature's circle marker a radius based on its attribute value
             geojsonMarkerOptions.radius = calcPropRadius(attValue);
@@ -129,9 +343,10 @@ return radius;
           //original popupContent changed to panelContent...Example 2.2 line 1
 
             //add formatted attribute to panel content string
-            var attribute = 'pop_2000';
-            var year = 2010 //attribute.split("_")[1];
-            popupContent += "<p><b>Population in " + year + ":</b> " + feature.properties[attribute] + " people</p>";
+            var attribute = attributes[0];
+
+            //var year = 2010 //attribute.split("_")[1];
+            //popupContent += "<p><b>Population in " + year + ":</b> " + feature.properties[attribute] + " people</p>";
 
             //popup content is now just the city name
             var popupContent = feature.properties.City;
@@ -140,7 +355,7 @@ return radius;
             //create marker options
 
                 var options = {
-                  fillColor: "#31a354",
+                  fillColor: "#6495ed",
                   color: "#006d2c",
                   weight: 1,
                   opacity: 1,
@@ -179,41 +394,163 @@ return radius;
 
         }
     }).addTo(map);
+};
 
+//Step 9: pass new attribute to update symbols
 //end scaled proportional symbol
-
-}
-});
-
-
-var arkansasCity = L.circle([33.607966, -91.164221-97.03901], 500, {
-   color: 'teal',
-   fillColor: '#f03',
-   fillOpacity: 0.5
-}).addTo(map);
-
-var polygon = L.polygon([
-    [39.896742, -94.971505],
-    [39.896735, -94.971595],
-    [39.896796, -94.971550]
-]).addTo(map);
 
 
 var popup = L.popup();
+
 
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(map);
+
+// sequencing values start
+//Example 3.3 line 1...create range input element (slider)
+   $('#popcon').append('<input class="range-slider" type="range">');
+
+   //set slider attributes
+   $('.range-slider').attr({
+       max: 12,
+       min: 0,
+       value: 0,
+       step: 1
+
+
+   });
+
+   $('#popcon').find('#reverse').html('<img src="img/reverse.png">');
+   $('#popcon').find('#forward').html('<img src="img/forward.png">');
 }
 
-map.on('click', onMapClick);
+
+//		updatePropSymbols(map, attributes[index]);
+	//map.on('click', onMapClick);
+
+$(document).ready(createMap);
+
+//Example 2.7 line 1...function to create the legend
+function createLegend(map, attributes){
+    var LegendControl = L.Control.extend({
+        options: {
+            position: 'bottomright'
+        },
+
+        onAdd: function (map) {
+            // create the control container with a particular class name
+            var container = L.DomUtil.create('div', 'legend-control-container');
+
+						//put your script to create the container here
+
+            //add temporal legend div to container
+            $(container).append('<div id="temporal-legend">')
+
+            //Step 1: start attribute legend svg string
+            var svg = '<svg id="attribute-legend" width="160px" height="60px">';
+
+
+						//array of circle names to base loop on
+        var circles = {
+				max: 20,
+				mean: 40,
+				min: 60
+				};
+
+        //Step 2: loop to add each circle and text to svg string
+        for (var circle in circles){
+            //circle string
+            svg += '<circle class="legend-circle" id="' + circles[i] +
+            '" fill="#66ccff" fill-opacity="0.8" stroke="#000000" cx="30"/>';
+
+						//text toString
+						svg += '<text id="' + circles + '-text" x="65" y="' + circles[circle] + '"></text>';
+			     };
+
+        //close svg string
+        svg += "</svg>";
+
+        //add attribute legend svg to container
+        $(container).append(svg);
+
+
+        return container;
+        }
+    });
+
+    map.addControl(new LegendControl());
+
+    updateLegend(map, attributes[0]);
+};
+
+//Calculate the max, mean, and min values for a given attribute
+function getCircleValues(map, attribute){
+    //start with min at highest possible and max at lowest possible number
+    var min = Infinity,
+        max = -Infinity;
+
+    map.eachLayer(function(layer){
+        //get the attribute value
+        if (layer.feature){
+            var attributeValue = Number(layer.feature.properties[attribute]);
+
+            //test for min
+            if (attributeValue < min){
+                min = attributeValue;
+            };
+
+            //test for max
+            if (attributeValue > max){
+                max = attributeValue;
+            };
+        };
+    });
+
+    //set mean
+    var mean = (max + min) / 2;
+
+    //return values as an object
+    return {
+        max: max,
+        mean: mean,
+        min: min
+    };
+};
+
+//Update the legend with new attribute
+function updateLegend(map, attribute){
+    //create content for legend
+    var year = attribute.split("_")[1];
+    var content = "Population in " + year;
+
+    //replace legend content
+    $('#temporal-legend').html(content);
+
+		//get the max, mean, and min values as an object
+	 var circleValues = getCircleValues(map, attribute);
+
+	 for (var key in circleValues){
+        //get the radius
+        var radius = calcPropRadius(circleValues[key]);
+
+        //Step 3: assign the cy and r attributes
+        $('#'+key).attr({
+            cy: 59 - radius,
+            r: radius
+        });
+				//Step 4: add legend text
+        $('#'+key+'-text').text(Math.round(circleValues[key]*100)/100 + " million");
+    };
+};
+
 </script>
 Unlike the rest of the US populations along the mississippi river have been shrinking over time. Some towns are smaller because less trade
 takes place along the river, while others have noticable dips after natural disasters effect the area. Most of the southern cities suffered a dip
 in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina.
 
-Data is provided by the US Census, USGS, FEMA, and the Army Corp of Engineers.
+Data is provided by the US Census, USGS, USDOT, FEMA, natural earthdata.com, and the Army Corp of Engineers.
 </body>
 </html>
