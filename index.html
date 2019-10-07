@@ -18,11 +18,11 @@ The Shifting Population of the Mississippi River Communities
                 float: left;
               }
 /*start create panel for popup*/
-		#panel { width: 15%;
+		#panel { width: 5%;
                padding: 60px;
                display: inline-block;
                vertical-align: top;
-               text-align: center;
+               text-align: left;
                float: right;
              }
 		#popcon { width: 10%;
@@ -57,7 +57,14 @@ The Shifting Population of the Mississippi River Communities
 <body>
 <div id="popcon"></div>
 <div id="mapid"></div>
-<div id="panel"></div>
+<div id="panel">
+	Unlike the rest of the US populations along the mississippi river have been shrinking over time. Some towns are smaller because less trade
+	takes place along the river, while others have noticable dips after natural disasters effect the area. Most of the southern cities suffered a dip
+	in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina.
+
+	Data is provided by the US Census, USGS, USDOT, FEMA, natural earthdata.com, and the Army Corp of Engineers.
+
+</div>
 
 <!--library scripts-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -67,6 +74,9 @@ The Shifting Population of the Mississippi River Communities
 
 <!--main script-->
 <script>
+var selectedYear = 1900;
+var mapData = null;
+var mapAttributes = null;
 //Step 1: Create the Leaflet map
 	function createMap(){
 //loads map coordinats and zoom vaule, 3 chosen because it shows off the US well.
@@ -100,7 +110,8 @@ The Shifting Population of the Mississippi River Communities
           //create marker options
           var attributes = processData(response);
 			console.log(attributes);
-
+					mapData = response;
+					mapAttributes = attributes;
           var geojsonMarkerOptions = {
             radius: 12,
             //blue of the water is 9EBCD8
@@ -194,8 +205,13 @@ function createSequenceControls(map, attributes){
          index--;
          index = index < 0 ? 12 : index;
        };
+			 selectedYear = 1900 + index * 10;
        //update slider
+			 createPropSymbols(mapData, map, mapAttributes)
+			 updateLegend(map, "pop_" + selectedYear)
        $('.range-slider').val(index);
+
+
      });
 
      //Step 5: input listener for slider
@@ -219,14 +235,14 @@ function createSequenceControls(map, attributes){
             var popupContent = "<p><b>Community:</b> " + props.Community + "</p>";
 
             var year = attribue.split("_")[1];
-            popupContent += "<p><b>Population in " + year + ":</b> " + props[attribute] + " people</p>";
+            popupContent += "<p><b>Population in " + selectedYear + ":</b> " + props[attribute] + " people</p>";
             layer.bindPopup(popupContent, {
               offset: new L.Point(0,-radius)
               });
         };
     });
      });
-		   updateLegend(map, attribute);
+		   updateLegend(map, 'pop_' + selectedYear);
 };
 
 
@@ -249,7 +265,7 @@ function createPropSymbols(response, attributes, map){
     this.layer = layer;
     this.year = attribute.split("_")[1];
     this.population = this.properties[attribute];
-    this.content = "<p><b>City:</b> " + this.properties.City + "</p><p><b>Population in " + this.year + ":</b> " + this.population + " million</p>";
+    this.content = "<p><b>City:</b> " + this.properties.City + "</p><p><b>Population in " + selectedYear + ":</b> " + this.population + " million</p>";
 
     this.bindToLayer = function(){
         this.layer.bindPopup(this.content, {
@@ -275,7 +291,7 @@ return radius;
 	//function to convert markers to circle markers
 function pointToLayer(feature, latlng, attributes){
     //Assign the current attribute based on the first index of the attributes array
-    var attribute = attributes[0];
+    var attribute = 'pop_' + selectedYear;
 
     //create marker options
     var options = {
@@ -385,7 +401,7 @@ function createPropSymbols(data, map, attributes){
                 },
                 click: function(){
                     var popupContent = this.feature.properties.Community;
-                    popupContent += "<p><b>Population in " + "2010" + ":</b> " + feature.properties["pop_2010"] + " people.</p>";
+                    popupContent += "<p><b>Population in " + selectedYear + ":</b> " + feature.properties["pop_2010"] + " people.</p>";
                     $("#popcon").html(popupContent);
 
                 }
@@ -464,11 +480,11 @@ function createLegend(map, attributes){
         //Step 2: loop to add each circle and text to svg string
         for (var circle in circles){
             //circle string
-            svg += '<circle class="legend-circle" id="' + circles[i] +
-            '" fill="#66ccff" fill-opacity="0.8" stroke="#000000" cx="30"/>';
+            svg += '<circle class="legend-circle" id="cicles-' + circle +
+            '" fill="#66ccff" fill-opacity="0.8" stroke="#000000" cx="30" height="20px" cy="30" r="' + circles[circle]/5 +'"/>';
 
 						//text toString
-						svg += '<text id="' + circles + '-text" x="65" y="' + circles[circle] + '"></text>';
+						svg += '<text id="' + circle + '-text" x="65" y="' + circles[circle] + '" height="20px"></text>';
 			     };
 
         //close svg string
@@ -484,7 +500,7 @@ function createLegend(map, attributes){
 
     map.addControl(new LegendControl());
 
-    updateLegend(map, attributes[0]);
+    updateLegend(map, 'pop_' + selectedYear);
 };
 
 //Calculate the max, mean, and min values for a given attribute
@@ -525,7 +541,7 @@ function getCircleValues(map, attribute){
 function updateLegend(map, attribute){
     //create content for legend
     var year = attribute.split("_")[1];
-    var content = "Population in " + year;
+    var content = "Population in " + selectedYear;
 
     //replace legend content
     $('#temporal-legend').html(content);
@@ -548,10 +564,5 @@ function updateLegend(map, attribute){
 };
 
 </script>
-Unlike the rest of the US populations along the mississippi river have been shrinking over time. Some towns are smaller because less trade
-takes place along the river, while others have noticable dips after natural disasters effect the area. Most of the southern cities suffered a dip
-in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina.
-
-Data is provided by the US Census, USGS, USDOT, FEMA, natural earthdata.com, and the Army Corp of Engineers.
 </body>
 </html>
