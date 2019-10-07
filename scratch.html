@@ -1,7 +1,7 @@
 <html>
 <head>
 
-The Shifting Population of the Mississippi River Communities
+<h1>The Shifting Population of the Mississippi River Communities</h1>
 
 <!--put your external stylesheet links here-->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
@@ -12,20 +12,32 @@ The Shifting Population of the Mississippi River Communities
 <!--<link rel="stylesheet" href="css/style.css">-->
 
 	<style>
+	h1 {
+  font-size: 2.6rem;
+  text-transform: capitalize;
+  text-align: center;
+	color: navy;
+}
+
 		#mapid { height: 700px;
                 width: 75%;
                 display: inline-block;
                 float: left;
               }
 /*start create panel for popup*/
-		#panel { width: 5%;
+		#panel { width: 8%;
                padding: 60px;
                display: inline-block;
                vertical-align: top;
                text-align: left;
                float: right;
              }
-		#popcon { width: 10%;
+
+						 p2{
+font-style: italic;
+font-size: 12px;
+}
+		#popcon { width: 7%;
                 padding: 20px;
                 display: inline-block;
                 vertical-align: top;
@@ -58,11 +70,11 @@ The Shifting Population of the Mississippi River Communities
 <div id="popcon"></div>
 <div id="mapid"></div>
 <div id="panel">
-	Unlike the rest of the US populations along the mississippi river have been shrinking over time. Some towns are smaller because less trade
+<p>	Unlike the rest of the US populations along the Mississippi River have been shrinking over time. Some towns are smaller because less trade
 	takes place along the river, while others have noticable dips after natural disasters effect the area. Most of the southern cities suffered a dip
-	in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina.
-
-	Data is provided by the US Census, USGS, USDOT, FEMA, natural earthdata.com, and the Army Corp of Engineers.
+	in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina.</p>
+<p>    </p>
+<p2>	Data is provided by: the US Census, USGS, USDOT, FEMA, the Army Corp of Engineers, and naturalearthdata.com.</p2>
 
 </div>
 
@@ -401,7 +413,7 @@ function createPropSymbols(data, map, attributes){
                 },
                 click: function(){
                     var popupContent = this.feature.properties.Community;
-                    popupContent += "<p><b>Population in " + selectedYear + ":</b> " + feature.properties["pop_2010"] + " people.</p>";
+                    popupContent += "<p><b>Population in " + selectedYear + ":</b> " + feature.properties[selectedYear] + " people.</p>";
                     $("#popcon").html(popupContent);
 
                 }
