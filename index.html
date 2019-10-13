@@ -70,9 +70,10 @@ font-size: 12px;
 <div id="popcon"></div>
 <div id="mapid"></div>
 <div id="panel">
-<p>	Unlike the rest of the US populations along the Mississippi River have been shrinking over time. Some towns are smaller because less trade
-	takes place along the river, while others have noticable dips after natural disasters effect the area. Most of the southern cities suffered a dip
-	in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina.</p>
+<p>	Unlike the rest of the US populations along the Mississippi River have not been on a steady incline. Some towns are shrunk because less trade
+	takes place along the river, while others have noticable dips after natural disasters effect the area. Many southern cities suffered a dip
+	in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina. Because of both enviormentmental and economic factors these Communities
+  have seen theur populations change in unexpected ways.</p>
 <p>    </p>
 <p2>	Data is provided by: the US Census, USGS, USDOT, FEMA, the Army Corp of Engineers, and naturalearthdata.com.</p2>
 
@@ -108,7 +109,7 @@ var mapAttributes = null;
 //overlay code from tutorialpoints.com, also called an overlay
 // Creating Image overlay
 		var imageUrl = 'img/splashs.jpg';
-		var imageBounds = [[27.792112,-125.099676], [34.261002,-114.856335]];
+		var imageBounds = [[27.376647,-119.758159], [34.622284,-108.997226]];
 		var overlay = L.imageOverlay(imageUrl, imageBounds);
 		overlay.addTo(map);
 
@@ -139,9 +140,19 @@ var mapAttributes = null;
             createSequenceControls(map, attributes);
 						createLegend(map, attributes);
 		  }
-		}
-			   )};
+		});
 
+ // can I please have the mississippi River
+				 $.getJSON("data/river.json",function(data){
+				 // add GeoJSON layer to the map once the file is loaded
+				 var datalayer = L.geoJson(data ,{
+				 onEachFeature: function(feature, featureLayer) {
+				 featureLayer.bindPopup(feature.properties.NAME_1);
+				 }
+       }).addTo(map);
+				 map.fitBounds(datalayer.getBounds());
+				 });
+}
 // create attributes for createSequenceControls
 //Above Example 3.8...Step 3: build an attributes array from the data
 
@@ -277,7 +288,7 @@ function createPropSymbols(response, attributes, map){
     this.layer = layer;
     this.year = attribute.split("_")[1];
     this.population = this.properties[attribute];
-    this.content = "<p><b>City:</b> " + this.properties.City + "</p><p><b>Population in " + selectedYear + ":</b> " + this.population + " million</p>";
+    this.content = "<p><b>City:</b> " + this.properties.City + "</p><p><b>Population in " + selectedYear + ":</b> " + this.population + " </p>";
 
     this.bindToLayer = function(){
         this.layer.bindPopup(this.content, {
@@ -374,8 +385,6 @@ function createPropSymbols(data, map, attributes){
             //add formatted attribute to panel content string
             var attribute = attributes[0];
 
-            //var year = 2010 //attribute.split("_")[1];
-            //popupContent += "<p><b>Population in " + year + ":</b> " + feature.properties[attribute] + " people</p>";
 
             //popup content is now just the city name
             var popupContent = feature.properties.City;
@@ -384,7 +393,7 @@ function createPropSymbols(data, map, attributes){
             //create marker options
 
                 var options = {
-                  fillColor: "#6495ed",
+                  fillColor: "#66ccff",
                   color: "#006d2c",
                   weight: 1,
                   opacity: 1,
@@ -413,7 +422,7 @@ function createPropSymbols(data, map, attributes){
                 },
                 click: function(){
                     var popupContent = this.feature.properties.Community;
-                    popupContent += "<p><b>Population in " + selectedYear + ":</b> " + feature.properties[selectedYear] + " people.</p>";
+                    popupContent += "<p><b>Population in " + selectedYear + ":</b> " + feature.properties['pop_' + selectedYear] + " people.</p>";
                     $("#popcon").html(popupContent);
 
                 }
@@ -452,8 +461,9 @@ function onMapClick(e) {
 
    });
 
-   $('#popcon').find('#reverse').html('<img src="img/reverse.png">');
-   $('#popcon').find('#forward').html('<img src="img/forward.png">');
+	 $('#reverse').html('<img src="img/reverse.png">');
+	 	$('#forward').html('<img src="img/forward.png">');
+
 }
 
 
@@ -493,7 +503,7 @@ function createLegend(map, attributes){
         for (var circle in circles){
             //circle string
             svg += '<circle class="legend-circle" id="cicles-' + circle +
-            '" fill="#66ccff" fill-opacity="0.8" stroke="#000000" cx="30" height="20px" cy="30" r="' + circles[circle]/5 +'"/>';
+            '" fill="#6495ed" fill-opacity="0.8" stroke="#000000" cx="30" height="20px" cy="30" r="' + circles[circle]/5 +'"/>';
 
 						//text toString
 						svg += '<text id="' + circle + '-text" x="65" y="' + circles[circle] + '" height="20px"></text>';
@@ -571,7 +581,7 @@ function updateLegend(map, attribute){
             r: radius
         });
 				//Step 4: add legend text
-        $('#'+key+'-text').text(Math.round(circleValues[key]*100)/100 + " million");
+        $('#'+key+'-text').text(Math.round(circleValues[key]*100)/100 + " people");
     };
 };
 
