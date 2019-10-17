@@ -73,7 +73,7 @@ font-size: 12px;
 <p>	Unlike the rest of the US populations along the Mississippi River have not been on a steady incline. Some towns are shrunk because less trade
 	takes place along the river, while others have noticable dips after natural disasters effect the area. Many southern cities suffered a dip
 	in the 2010 census, when the area suffered severe flooding associated with Hurrican Katrina. Because of both enviormentmental and economic factors these Communities
-  have seen theur populations change in unexpected ways.</p>
+  have seen their populations change in unexpected ways.</p>
 <p>    </p>
 <p2>	Data is provided by: the US Census, USGS, USDOT, FEMA, the Army Corp of Engineers, and naturalearthdata.com.</p2>
 
@@ -95,12 +95,19 @@ var mapAttributes = null;
 //loads map coordinats and zoom vaule, 3 chosen because it shows off the US well.
 		var map = L.map('mapid').setView([39.896776, -98.144583], 5);
 //add tile layer...replace project id and accessToken with your own
-		var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
+		var esri = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
 			attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
 			maxZoom: 30,
 			id: 'lksmith5',
 			accessToken: 'pk.eyJ1IjoibGtzbWl0aDUiLCJhIjoiY2swa202Ym94MDNmYjNjbGFsZmNsazd3eSJ9.aebW56uPIc6nhdqwzYKEHQ'
 		}).addTo(map);
+
+    var cartoDB = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+	subdomains: 'abcd',
+	maxZoom: 30
+
+});
 //    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery   <a href="http://mapbox.com">Mapbox</a>',
 //    maxZoom: 18,
 //    id: 'username.ab12cdef',
@@ -108,12 +115,96 @@ var mapAttributes = null;
 // }).addTo(map);
 //overlay code from tutorialpoints.com, also called an overlay
 // Creating Image overlay
+
 		var imageUrl = 'img/splashs.jpg';
 		var imageBounds = [[27.376647,-119.758159], [34.622284,-108.997226]];
-		var overlay = L.imageOverlay(imageUrl, imageBounds);
-		overlay.addTo(map);
+		var splash = L.imageOverlay(imageUrl, imageBounds);
+		splash.addTo(map);
 
+//locations of dams along the mississippi from the army corp of Engineers
+
+    var a = L.marker([30.19167546,	-90.25000566]),
+    	b   = L.marker([31.45333569,	-91.220006]),
+    	c   = L.marker([31.52500571,	-91.33334603]),
+      d   = L.marker([31.59000571,	-91.20667599]),
+      e   = L.marker([33.3666661,	-91.25500609]),
+      f   = L.marker([33.49166613,	-91.17500611]),
+      g   = L.marker([37.96667705,	-90.06667608]),
+      h   = L.marker([37.96861702,	-90.06973612]),
+      i   = L.marker([38.00000702,	-90.00000607]),
+      j   = L.marker([38.17528707,	-90.33667617]),
+      k   = L.marker([38.18000705,	-90.3338962]),
+      l   = L.marker([38.81833714,	-90.48250627]),
+      m   = L.marker([38.85830717,	-90.13830617]),
+      n   = L.marker([38.8766772,	-90.18333621]),
+      o   = L.marker([39.00000719,	-90.68667635]),
+      p   = L.marker([39.37500726,	-90.90000646]),
+      q   = L.marker([39.37667722,	-90.90833647]),
+      r   = L.marker([39.63540725,	-91.24870655]),
+      s   = L.marker([39.90300732,	-91.42880665]),
+      t   = L.marker([40.14000735,	-91.52330669]),
+      u   = L.marker([40.14330733,	-91.51490669]),
+      v   = L.marker([40.39500737,	-91.37470667]),
+      w   = L.marker([40.5450074,	-91.3833067]),
+      x   = L.marker([40.88160749,	-91.02400663]),
+      y   = L.marker([40.88330748,	-91.02330665]),
+      z   = L.marker([41.19170753,	-91.05680665]),
+      aa   = L.marker([41.36660757,	-90.83500661]),
+      ab   = L.marker([41.42330757,	-91.00670669]),
+      ac   = L.marker([41.42500761,	-91.01020669]),
+      ad   = L.marker([41.4691776,	-90.75222662]),
+      ae   = L.marker([41.51000762,	-90.53000656]),
+      af   = L.marker([41.51500763,	-90.54000654]),
+      ag   = L.marker([41.5183076,	-90.56830657]),
+      ah   = L.marker([41.5183076,	-90.56380656]),
+      ai   = L.marker([41.57330763,	-90.39170654]),
+      aj   = L.marker([41.57410762,	-90.40030651]),
+      ak   = L.marker([41.89720774,	-90.1547065]),
+      al   = L.marker([42.26030776,	-90.42210662]),
+      am   = L.marker([42.5393078,	-90.64530668]),
+      an   = L.marker([42.54055781,	-90.64299669]),
+      ao   = L.marker([42.78500778,	-91.09500686]),
+      ap   = L.marker([42.7889378,	-91.07378683]),
+      aq   = L.marker([43.00195784,	-91.18555688]),
+      ar   = L.marker([43.21167787,	-91.09500691]),
+      as   = L.marker([43.57667791,	-91.23167698]),
+      at   = L.marker([43.86667794,	-91.30833703]),
+      au   = L.marker([43.86680798,	-91.30730703]),
+      av   = L.marker([44.00000797,	-91.43833709]),
+      aw   = L.marker([44.08833798,	-91.6700072]),
+      ax   = L.marker([44.08833798,	-91.66874716]),
+      ay   = L.marker([44.16167795,	-91.81167724]),
+      az   = L.marker([44.16216798,	-91.81022721]),
+      ba   = L.marker([44.32500799,	-91.92333726]),
+      bb   = L.marker([44.61000797,	-92.61000749]),
+      bc   = L.marker([44.612108,	-92.61007752]),
+      bd   = L.marker([44.76000798,	-92.8683376]),
+      be   = L.marker([44.911678,	-93.0566677]),
+      bf   = L.marker([44.91500799,	-93.20167771]),
+      bg   = L.marker([44.97833802,	-93.24667772]),
+      bh   = L.marker([44.98167799,	-93.25833774]),
+      bi   = L.marker([46.78333823,	-93.31667805]),
+      bj   = L.marker([36.35778676,	-89.43195582]),
+      bk   = L.marker([37.0000069,	-89.00000573]);
+  var Dam = L.layerGroup([a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t,
+    u, v, w, x, y, z, aa, ab, ac, ad, ae, af, ag, ah, ai, aj, ak, al, am, an, ao, ap,
+    aq, ar, as, at, au, av, aw, ax, ay, az, ba, bb, bc, bd, be, bf, bg, bh, bi, bj, bk]);
 		getData(map);
+
+
+
+    //create base layers
+      var baseLayers = {
+          "Hillshade": esri,
+          "State Outlines": cartoDB
+      };
+      // controlled overlays
+      var overlay = {
+         "Dams": Dam
+
+};
+
+L.control.layers(baseLayers, overlay, {collapsed:false}).addTo(map);
 
 };
 	function getData(map){
@@ -152,6 +243,7 @@ var mapAttributes = null;
        }).addTo(map);
 				 map.fitBounds(datalayer.getBounds());
 				 });
+
 }
 // create attributes for createSequenceControls
 //Above Example 3.8...Step 3: build an attributes array from the data
@@ -177,20 +269,14 @@ function processData(data){
     return attributes2;
 };
 //end attribute for sequence
-//ajax comman to load geojson file and create circle markers for their various locations
-// beginging of creating a proportionaL symbol
-// beginging of sequencing
-//Step 1: Create new sequence controls
 
-
-// THIS IS WHERE MY ISSUE LIVES beginging MISSING
 
 function createSequenceControls(map, attributes){
     //create range input element (slider)
 
     var SequenceControl = L.Control.extend({
        options: {
-           position: 'topright'
+           position: 'topleft'
        },
 
        onAdd: function (map) {
